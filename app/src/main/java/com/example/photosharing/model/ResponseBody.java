@@ -1,9 +1,18 @@
 package com.example.photosharing.model;
 
-public class ResponseBody {
+public class ResponseBody<T> {
     private String code;
-    private String message;
-    private Object data;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    private String msg;
+    private T data;
 
     public String getCode() {
         return code;
@@ -13,19 +22,12 @@ public class ResponseBody {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
-    }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(T data) {
         this.data = data;
     }
 }
