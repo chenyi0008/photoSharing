@@ -6,6 +6,8 @@ import com.example.photosharing.model.User;
 import com.example.photosharing.model.UserInfo;
 import com.example.photosharing.model.UserInfoUpdateDto;
 
+import java.util.List;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -39,15 +41,14 @@ public interface RetrofitRequest_Interface {
 
     /**
      * 上传文件
-     * @param file
+     * @param fileList
      * @return
      */
 
-//    @POST("/member/photo/image/upload")
+    @POST("/member/photo/image/upload")
     @Multipart
-    @POST("/files/uploadOne")
     Call<ResponseBody<MyFile>> uploadFile(
-            @Part MultipartBody.Part file);
+            @Part List<MultipartBody.Part> fileList);
 
 
 

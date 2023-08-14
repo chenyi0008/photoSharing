@@ -20,6 +20,7 @@ public class TokenInterceptor implements Interceptor {
                 .header("appId", appId) // 添加 token 到请求头
                 .header("appSecret", appSecret)
                 .header("Content-Type", "application/json")
+                .header("Accept", "application/json, text/plain, */*")
                 .build();
         return chain.proceed(modifiedRequest);
     }
