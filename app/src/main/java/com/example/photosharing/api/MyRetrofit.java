@@ -9,7 +9,7 @@ public class MyRetrofit {
 
     private static String baseUrl = "http://47.107.52.7:88/";
 
-//    private static String baseUrl = "http://127.0.0.1:9000/";
+//    private static String baseUrl = "http://127.0.0.1:8888/";
 
 
 
