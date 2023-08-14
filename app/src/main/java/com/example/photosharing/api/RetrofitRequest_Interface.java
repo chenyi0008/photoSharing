@@ -4,12 +4,13 @@ import com.example.photosharing.model.MyFile;
 import com.example.photosharing.model.ResponseBody;
 import com.example.photosharing.model.User;
 import com.example.photosharing.model.UserInfo;
-import com.example.photosharing.model.UserInfoUpdateDto;
+import com.example.photosharing.model.dto.ImageShareDto;
+import com.example.photosharing.model.dto.ImageShareListDto;
+import com.example.photosharing.model.dto.UserInfoUpdateDto;
 
 import java.util.List;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -51,9 +52,127 @@ public interface RetrofitRequest_Interface {
             @Part List<MultipartBody.Part> fileList);
 
 
-
+    /**
+     * 修改用户信息
+     * @param userInfoUpdateDto
+     * @return
+     */
     @POST("/member/photo/user/update")
     Call<ResponseBody> updateUser(@Body UserInfoUpdateDto userInfoUpdateDto);
+
+
+    /**
+     * 新增图文分享
+     * @param dto
+     * @return
+     */
+    @POST("/member/photo/share/add")
+    Call<ResponseBody> ImageSharing(@Body ImageShareDto dto);
+
+    /**
+     * 获取图片分享发现列表
+     * @param current 当前页 第一页写0
+     * @param size 页面大小
+     * @param userId 当前登录用户主键id
+     * @return
+     */
+    @GET("/member/photo/share")
+    Call<ResponseBody<ImageShareListDto>> getSharingDiscoveries(@Query("current") int current,
+                                                                @Query("size") int size,
+                                                                @Query("userId") String userId);
+
+    /**
+     * 添加关注
+     * @param focusUserId 被关注的用户id
+     * @param userId  用户id
+     * @return
+     */
+    @POST("/member/photo/focus")
+    Call<ResponseBody> addFollow(@Query("focusUserId") String focusUserId,
+                                     @Query("userId") String userId);
+
+
+    /**
+     * 取消关注
+     * @param focusUserId 被关注的用户id
+     * @param userId  用户id
+     * @return
+     */
+    @POST("/member/photo/focus/cancel")
+    Call<ResponseBody> unFollow(@Query("focusUserId") String focusUserId,
+                                 @Query("userId") String userId);
+
+    /**
+     * 获取当前登录用户已关注的图文列表
+     * @param current 当前页 第一页写0
+     * @param size 页面大小
+     * @param userId 当前登录用户主键id
+     * @return
+     */
+    @GET("/member/photo/focus")
+    Call<ResponseBody<ImageShareListDto>> getFollowedImages(@Query("current") int current,
+                                         @Query("size") int size,
+                                         @Query("userId") String userId);
+
+    /**
+     * 获取我的动态图片分享列表
+     * @param current 当前页 第一页写0
+     * @param size 页面大小
+     * @param userId 当前登录用户主键id
+     * @return
+     */
+    @GET("/member/photo/share/myself")
+    Call<ResponseBody<ImageShareListDto>> getMyShare(@Query("current") int current,
+                                                                @Query("size") int size,
+                                                                @Query("userId") String userId);
+
+    /**
+     * 用户对图文分享进行收藏
+     * @param shareId 图文分享的主键id
+     * @param userId 当前登录用户主键id
+     * @return
+     */
+    @POST("/member/photo/collect")
+    Call<ResponseBody> collect(@Query("shareId") String shareId,
+                               @Query("userId") String userId);
+
+    /**
+     * 用户取消对图文分享的收藏
+     * collectId 收藏表主键id
+     * @return
+     */
+    @POST("/member/photo/collect")
+    Call<ResponseBody> unCollect(@Query("collectId") String collectId);
+
+    /**
+     * 获取当前登录用户收藏图文列表
+     * @param current 当前页 第一页写0
+     * @param size 页面大小
+     * @param userId 当前登录用户主键id
+     * @return
+     */
+    @GET("/member/photo/collect")
+    Call<ResponseBody<ImageShareListDto>> getMyCollect(@Query("current") int current,
+                                                       @Query("size") int size,
+                                                       @Query("userId") String userId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,4 +1,4 @@
-package com.example.photosharing.model;
+package com.example.photosharing.model.dto;
 
 public class UserInfoUpdateDto {
 
