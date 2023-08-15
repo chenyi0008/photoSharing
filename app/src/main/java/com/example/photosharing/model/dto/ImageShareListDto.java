@@ -22,11 +22,11 @@ public class ImageShareListDto {
     @Override
     public String toString() {
         return "ImageShareListDto{" +
-                "current=" + current +
-                ", records=" + records +
-                ", size=" + size +
-                ", total=" + total +
-                '}';
+                "\n    current=" + current +
+                ", \n    records=" + records +
+                ", \n    size=" + size +
+                ", \n    total=" + total +
+                "\n}";
     }
 
     // 获取当前页

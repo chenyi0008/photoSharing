@@ -55,23 +55,24 @@ public class ImageShareItemDto {
     @Override
     public String toString() {
         return "ImageShareItemDto{" +
-                "id='" + id + '\'' +
-                ", pUserId='" + pUserId + '\'' +
-                ", imageCode='" + imageCode + '\'' +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", imageUrlList=" + imageUrlList +
-                ", likeId='" + likeId + '\'' +
-                ", likeNum=" + likeNum +
-                ", hasLike=" + hasLike +
-                ", collectId='" + collectId + '\'' +
-                ", collectNum=" + collectNum +
-                ", hasCollect=" + hasCollect +
-                ", hasFocus=" + hasFocus +
-                ", username='" + username + '\'' +
-                '}';
+                "\n    id='" + id + '\'' +
+                ", \n    pUserId='" + pUserId + '\'' +
+                ", \n    imageCode='" + imageCode + '\'' +
+                ", \n    title='" + title + '\'' +
+                ", \n    content='" + content + '\'' +
+                ", \n    createTime='" + createTime + '\'' +
+                ", \n    imageUrlList=" + imageUrlList +
+                ", \n    likeId='" + likeId + '\'' +
+                ", \n    likeNum=" + likeNum +
+                ", \n    hasLike=" + hasLike +
+                ", \n    collectId='" + collectId + '\'' +
+                ", \n    collectNum=" + collectNum +
+                ", \n    hasCollect=" + hasCollect +
+                ", \n    hasFocus=" + hasFocus +
+                ", \n    username='" + username + '\'' +
+                "\n}";
     }
+
 
     public String getId() {
         return id;

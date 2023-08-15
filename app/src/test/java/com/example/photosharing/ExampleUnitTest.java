@@ -6,9 +6,12 @@ import org.junit.Test;
 
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
+import com.example.photosharing.model.Comment;
+import com.example.photosharing.model.CommentList;
 import com.example.photosharing.model.ResponseBody;
 import com.example.photosharing.model.User;
 import com.example.photosharing.model.UserInfo;
+import com.example.photosharing.model.dto.CommentDto;
 import com.example.photosharing.model.dto.ImageShareDto;
 import com.example.photosharing.model.dto.ImageShareListDto;
 import com.example.photosharing.model.dto.UserInfoUpdateDto;
@@ -526,13 +529,263 @@ public class ExampleUnitTest {
         });
     }
 
+    /**
+     * 新增一个图片分享的一级评论
+     */
+    @Test
+    public void setFirstCommentTest(){
+        CommentDto commentDto = new CommentDto();
+        commentDto.setShareId("4833");
+        commentDto.setUserId("1690980829649571840");
+        commentDto.setUserName("chen");
+        commentDto.setContent("hello");
+
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody> call = httpUtil.setFirstComment(commentDto);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    // 修改成功，处理响应
+                    System.out.println("请求成功");
+                    System.out.println(response.body().getMsg());
+
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("请求失败");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("服务器异常");
+            }
+        });
+
+    }
+
+    /**
+     * 获取一级评论
+     */
+    @Test
+    public void getFirstCommentTest(){
+        int current = 0; //第0页
+        int size = 10;  //大小为10
+        String shareId = "4833";
+
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody<CommentList>> call = httpUtil.getFirstComment(current, size, shareId);
+        System.out.println(call.request().url());
+        call.enqueue(new Callback<ResponseBody<CommentList>>() {
+            @Override
+            public void onResponse(Call<ResponseBody<CommentList>> call, Response<ResponseBody<CommentList>> response) {
+                if (response.isSuccessful()) {
+                    // 修改成功，处理响应
+                    System.out.println("请求成功");
+                    System.out.println(response.body().getData());
+
+
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("请求失败");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody<CommentList>> call, Throwable t) {
+                System.out.println("服务器异常");
+            }
+        });
+    }
+
+    /**
+     * 用户对图文分享进行点赞
+     */
+    @Test
+    public void likeTest(){
+        String shareId = "4833";
+        String userId = "1690980829649571840";
+
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody> call = httpUtil.like(shareId, userId);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    // 修改成功，处理响应
+                    System.out.println("请求成功");
+                    System.out.println(response.body().getMsg());
+
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("请求失败");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("服务器异常");
+            }
+        });
+
+
+
+    }
+
+
+    /**
+     * 获取当前登录用户点赞图文列表
+     */
+    @Test
+    public void getLikeTest(){
+        int current = 0; //第0页
+        int size = 10;  //大小为10
+        String userId = "1690980829649571840";
+
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody<ImageShareListDto>> call = httpUtil.getLike(current, size, userId);
+
+
+        call.enqueue(new Callback<ResponseBody<ImageShareListDto>>() {
+            @Override
+            public void onResponse(Call<ResponseBody<ImageShareListDto>> call, Response<ResponseBody<ImageShareListDto>> response) {
+                if (response.isSuccessful()) {
+                    // 修改成功，处理响应
+                    System.out.println("请求成功");
+                    System.out.println(response.body().getCode());
+                    System.out.println(response.body().getMsg());
+                    System.out.println(response.body().getData().toString());
+
+
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("请求失败");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody<ImageShareListDto>> call, Throwable t) {
+                System.out.println("服务器异常");
+            }
+        });
+
+    }
+
+    /**
+     * 用户取消对图文分享的点赞
+     */
+    @Test
+    public void unLikeTest(){
+        String likeId = "4833";
+
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody> call = httpUtil.unLike(likeId);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    // 修改成功，处理响应
+                    System.out.println("请求成功");
+                    System.out.println(response.body().getMsg());
+
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("请求失败");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("服务器异常");
+            }
+        });
+    }
+
+    /**
+     * 获取已保存的图文分享列表
+     */
+    @Test
+    public void getSaveTest(){
+        int current = 0; //第0页
+        int size = 10;  //大小为10
+        String userId = "1690980829649571840";
+
+
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody<ImageShareListDto>> call = httpUtil.getSave(current, size, userId);
+
+
+        call.enqueue(new Callback<ResponseBody<ImageShareListDto>>() {
+            @Override
+            public void onResponse(Call<ResponseBody<ImageShareListDto>> call, Response<ResponseBody<ImageShareListDto>> response) {
+                if (response.isSuccessful()) {
+                    // 修改成功，处理响应
+                    System.out.println("请求成功");
+                    System.out.println(response.body().getCode());
+                    System.out.println(response.body().getMsg());
+                    System.out.println(response.body().getData().toString());
+
+
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("请求失败");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody<ImageShareListDto>> call, Throwable t) {
+                System.out.println("服务器异常");
+            }
+        });
+    }
 
 
 
 
+    /**
+     * 保存图文分享
+     */
+    @Test
+    public void saveImageShareTest(){
+        ImageShareDto dto = new ImageShareDto();
+        dto.setContent("content...");
+        //注意 此处的ImageCode要从批量上传文件的api去获取
+        dto.setImageCode("1690985100197629952");
+        dto.setPUserId("1690980829649571840");
+        dto.setTitle("bilibili");
 
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody> call = httpUtil.saveImageSharing(dto);
 
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    // 修改成功，处理响应
+                    System.out.println("请求成功");
+                    System.out.println(response.body().getMsg());
 
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("请求失败");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println("服务器异常");
+            }
+        });
+    }
 
 
 

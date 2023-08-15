@@ -16,12 +16,13 @@ public class ImageShareDto {
     @Override
     public String toString() {
         return "ImageShareDto{" +
-                "content='" + content + '\'' +
-                ", imageCode='" + imageCode + '\'' +
-                ", pUserId='" + pUserId + '\'' +
-                ", title='" + title + '\'' +
-                '}';
+                "\n    content='" + content + '\'' +
+                ", \n    imageCode='" + imageCode + '\'' +
+                ", \n    pUserId='" + pUserId + '\'' +
+                ", \n    title='" + title + '\'' +
+                "\n}";
     }
+
 
     public ImageShareDto(String content, String imageCode, String pUserId, String title) {
         this.content = content;

@@ -1,9 +1,12 @@
 package com.example.photosharing.api;
 
+import com.example.photosharing.model.Comment;
+import com.example.photosharing.model.CommentList;
 import com.example.photosharing.model.MyFile;
 import com.example.photosharing.model.ResponseBody;
 import com.example.photosharing.model.User;
 import com.example.photosharing.model.UserInfo;
+import com.example.photosharing.model.dto.CommentDto;
 import com.example.photosharing.model.dto.ImageShareDto;
 import com.example.photosharing.model.dto.ImageShareListDto;
 import com.example.photosharing.model.dto.UserInfoUpdateDto;
@@ -155,6 +158,86 @@ public interface RetrofitRequest_Interface {
     Call<ResponseBody<ImageShareListDto>> getMyCollect(@Query("current") int current,
                                                        @Query("size") int size,
                                                        @Query("userId") String userId);
+
+    /**
+     * 获取一级评论
+     * @param current 当前页 第一页写0
+     * @param size 页面大小
+     * @param shareId 图文分享的主键id
+     * @return
+     */
+    @GET("/member/photo/comment/first")
+    Call<ResponseBody<CommentList>> getFirstComment(@Query("current") int current,
+                                                    @Query("size") int size,
+                                                    @Query("shareId") String shareId);
+
+    /**
+     * 新增一个图片分享的一级评论
+     * commentDto 评论封装类
+     * @return
+     */
+    @POST("/member/photo/comment/first")
+    Call<ResponseBody> setFirstComment(@Body CommentDto commentDto);
+
+
+//    @POST("/member/photo/comment/second")
+
+    /**
+     * 用户对图文分享进行点赞
+     * @param shareId 图文分享的主键id
+     * @param userId 当前登录用户主键id
+     * @return
+     */
+    @POST("/member/photo/like")
+    Call<ResponseBody> like(@Query("shareId") String shareId,
+                            @Query("userId") String userId);
+
+
+    /**
+     * 获取当前登录用户点赞图文列表
+     * @param current 当前页 第一页写0
+     * @param size 页面大小
+     * @param userId 当前登录用户主键id
+     * @return
+     */
+    @GET("/member/photo/like")
+    Call<ResponseBody<ImageShareListDto>> getLike(@Query("current") int current,
+                                                @Query("size") int size,
+                                                @Query("userId") String userId);
+
+
+    /**
+     * 用户取消对图文分享的点赞
+     * @param likeId 点赞表主键id
+     * @return
+     */
+    @POST("/member/photo/like/cancel")
+    Call<ResponseBody> unLike(@Query("likeId") String likeId);
+
+
+    /**
+     * 获取已保存的图文分享列表
+     * @param current 当前页 第一页写0
+     * @param size 页面大小
+     * @param userId 当前登录用户主键id
+     * @return
+     */
+    @GET("/member/photo/share/save")
+    Call<ResponseBody<ImageShareListDto>> getSave(@Query("current") int current,
+                                                  @Query("size") int size,
+                                                  @Query("userId") String userId);
+
+    /**
+     * 保存图文分享
+     * @param dto
+     * @return
+     */
+    @POST("/member/photo/share/save")
+    Call<ResponseBody> saveImageSharing(@Body ImageShareDto dto);
+
+
+
+
 
 
 
