@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,17 +33,17 @@
 
         <EditText
             android:id="@+id/et_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginBottom="0dp"
+            android:layout_width="331dp"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:inputType="text"
-            android:hint="Email/Account"
             android:layout_marginStart="48dp"
+            android:layout_marginLeft="4dp"
             android:layout_marginEnd="48dp"
-            android:maxLines="1"/>
+            android:layout_marginBottom="0dp"
+            android:hint="Email/Account"
+            android:inputType="text"
+            android:maxLines="1" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -98,12 +98,12 @@
 <!--            android:layout_alignParentBottom="true"/>-->
 
 <!--        <TextView-->
-<!--            android:id="@+id/tv_sign_up"-->
-<!--            android:text="Sign up"-->
-<!--            android:textColor="?attr/colorAccent"-->
+<!--            android:id="@+id/tv_login"-->
 <!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"/>-->
-<!--            android:layout_alignBaseline="@id/cb_remember_pwd"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Login"-->
+<!--            android:textColor="?attr/colorAccent" />-->
+<!--                    android:layout_alignBaseline="@id/cb_remember_pwd"-->
 <!--            android:layout_marginEnd="8dp"-->
 <!--            android:layout_alignParentEnd="true"-->
 <!--            android:layout_alignParentBottom="true"/>-->
@@ -114,22 +114,23 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/bt_login"
+            android:id="@+id/bt_sign"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
             android:background="?attr/colorPrimary"
-            android:text="Login"
+            android:text="Sign"
             android:textColor="@android:color/white" />
+
         <Button
-            android:id="@+id/bt_to_sign"
+            android:id="@+id/bt_to_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="75dp"
             android:background="?attr/colorPrimary"
-            android:text="Sign Up"
+            android:text="Go To Login"
             android:textColor="@android:color/white" />
     </RelativeLayout>
 </LinearLayout>

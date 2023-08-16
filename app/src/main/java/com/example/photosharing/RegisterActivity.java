@@ -1,18 +1,11 @@
 package com.example.photosharing;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.InputType;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
 import com.example.photosharing.model.ResponseBody;
+import com.example.photosharing.model.User;
 import com.example.photosharing.model.UserInfo;
 
 import java.util.concurrent.CountDownLatch;
@@ -31,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     private Boolean bPwdSwitch = false;
     private EditText etPwd;
     private EditText etAccount;
@@ -39,20 +33,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
         final ImageView ivPwdSwitch = findViewById(R.id.iv_pwd_switch);
         etPwd = findViewById(R.id.et_pwd);
         etAccount = findViewById(R.id.et_account);
-        Button btLogin = findViewById(R.id.bt_login);
-        Button btSign=findViewById(R.id.bt_to_sign);
+        Button btLogin = findViewById(R.id.bt_to_login);
+        Button btSign=findViewById(R.id.bt_sign);
 
-        btLogin.setOnClickListener(this);
-        btSign.setOnClickListener(new View.OnClickListener() {
+        btSign.setOnClickListener(this);
+        btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,
-                        RegisterActivity.class);
+                Intent intent = new Intent(RegisterActivity.this,
+                        LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -80,33 +74,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         final CountDownLatch latch = new CountDownLatch(1);
-
-        String username = etAccount.getText().toString();
-        String password = etPwd.getText().toString();
+        User u = new User();
+        u.setUsername(etAccount.getText().toString());
+        u.setPassword(etPwd.getText().toString());
 
         RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
-        Call<ResponseBody<UserInfo>> call = httpUtil.login(username, password);
-
-        call.enqueue(new Callback<ResponseBody<UserInfo>>() {
+        Call<ResponseBody> call = httpUtil.register(u);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody<UserInfo>> call, Response<ResponseBody<UserInfo>> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+                    // 注册成功，处理响应
                     System.out.println("请求成功，处理响应");
-                    System.out.println(response.body());
-
-                    UserInfo userInfo = response.body().getData();
-
-                    Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                    System.out.println(userInfo);
-                    System.out.println(response.body().getMsg());
+                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this,
+                            LoginActivity.class);
+                    startActivity(intent);
                 } else {
-                    System.out.println("登录失败，处理错误情况");
-                    System.out.println(call.request().url());
+                    // 注册失败，处理错误情况
+                    System.out.println("请求失败，处理错误情况");
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody<UserInfo>> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 // 处理网络请求失败
                 System.out.println("处理网络请求失败");
             }
