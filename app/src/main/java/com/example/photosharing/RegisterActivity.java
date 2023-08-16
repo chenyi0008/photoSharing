@@ -86,10 +86,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (response.isSuccessful()) {
                     // 注册成功，处理响应
                     System.out.println("请求成功，处理响应");
-                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this,
-                            LoginActivity.class);
-                    startActivity(intent);
+//                    System.out.println(response.body().getMsg());
+
+                    if(response.body().getMsg() == null) {
+                        Toast.makeText(RegisterActivity.this,
+                                "注册成功",
+                                Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegisterActivity.this,
+                                LoginActivity.class);
+                        startActivity(intent);
+                    }
+
+
+                    else{
+                        Toast.makeText(RegisterActivity.this,
+                                response.body().getMsg(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+
+
                 } else {
                     // 注册失败，处理错误情况
                     System.out.println("请求失败，处理错误情况");
@@ -98,8 +114,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+
                 // 处理网络请求失败
                 System.out.println("处理网络请求失败");
+                System.out.println(t.getMessage());
+                System.out.println(t.getStackTrace());
+                System.out.println(t.getStackTrace());
             }
         });
 

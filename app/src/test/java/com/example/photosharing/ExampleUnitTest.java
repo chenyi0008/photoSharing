@@ -62,6 +62,7 @@ public class ExampleUnitTest {
                 if (response.isSuccessful()) {
                     // 注册成功，处理响应
                     System.out.println("请求成功，处理响应");
+                    System.out.println(response.body().getMsg());
 
                 } else {
                     // 注册失败，处理错误情况
