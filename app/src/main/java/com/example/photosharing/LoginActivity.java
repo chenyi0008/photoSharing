@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -94,10 +95,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     System.out.println("请求成功，处理响应");
                     System.out.println(response.body());
 
-                    UserInfo userInfo = response.body().getData();
+                    //UserInfo.getInstance().SetInfo(response.body().getData());
+                    UserInfo userInfo=response.body().getData();
+                    UserInfo.SetInstance(userInfo);
 
                     Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                    System.out.println(userInfo);
+                    //System.out.println(userInfo);
                     System.out.println(response.body().getMsg());
                     Intent intent = new Intent(LoginActivity.this,
                             MainActivity.class);

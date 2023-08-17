@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".api.PersonFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="个人界面" />
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_user" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/profile_image"
+            android:layout_marginStart="20dp"
+            android:text="User Name" />
+
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="13dp"
+            android:layout_toRightOf="@id/profile_image"
+            android:text="Gender" />
+
+        <TextView
+            android:id="@+id/bio"
+            android:layout_width="395dp"
+            android:layout_height="145dp"
+            android:layout_below="@id/gender"
+            android:layout_marginTop="101dp"
+            android:text="This is a bio" />
+
+        <Button
+            android:id="@+id/edit_profile"
+            android:layout_width="277dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bio"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="50dp"
+            android:text="Edit Profile" />
+
+    </RelativeLayout>
 
 </FrameLayout>

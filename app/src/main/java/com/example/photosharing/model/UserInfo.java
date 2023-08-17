@@ -1,6 +1,8 @@
 package com.example.photosharing.model;
 
 public class UserInfo {
+    private static UserInfo instance;
+
     private String id; // 主键id
     private String appKey; // 用户创建应用的id
     private String username; // 用户名
@@ -10,6 +12,18 @@ public class UserInfo {
     private String avatar; // 头像
     private String createTime; // 创建时间
     private String lastUpdateTime; // 修改时间
+
+    public static synchronized UserInfo getInstance() {
+        if (instance == null) {
+            instance = new UserInfo();
+        }
+        return instance;
+    }
+    public static void SetInstance(UserInfo userInfo){
+        instance=userInfo;
+    }
+
+    private UserInfo(){}
 
     public UserInfo(String id, String appKey, String username, String password, String sex,
                     String introduce, String avatar, String createTime, String lastUpdateTime) {
