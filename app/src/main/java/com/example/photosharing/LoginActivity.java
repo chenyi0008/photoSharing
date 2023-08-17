@@ -99,6 +99,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                     System.out.println(userInfo);
                     System.out.println(response.body().getMsg());
+                    Intent intent = new Intent(LoginActivity.this,
+                            MainActivity.class);
+                    startActivity(intent);
                 } else {
                     System.out.println("登录失败，处理错误情况");
                     System.out.println(call.request().url());

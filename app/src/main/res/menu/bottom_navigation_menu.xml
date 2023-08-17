@@ -1,0 +1,18 @@
+<?xml version ="1.0" encoding ="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/immerse"
+        android:enabled="true"
+        android:icon="@drawable/immerse_20_inactive"
+        android:title="社区"/>
+    <item
+        android:id="@+id/test"
+        android:enabled="true"
+        android:icon="@drawable/test_20_inactive"
+        android:title="我的收藏"/>
+    <item
+        android:id="@+id/person"
+        android:enabled="true"
+        android:icon="@drawable/person_20_inactive"
+        android:title="个人"/>
+</menu>
