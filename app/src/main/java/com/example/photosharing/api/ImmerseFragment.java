@@ -4,11 +4,19 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.photosharing.R;
+import com.example.photosharing.model.ResponseBody;
+import com.example.photosharing.model.UserInfo;
+import com.example.photosharing.model.dto.ImageShareListDto;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +63,32 @@ public class ImmerseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        int current = 0; //第0页
+        int size = 10;  //大小为10
+        String userId = UserInfo.getInstance().getId();
+
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody<ImageShareListDto>> call = httpUtil.getSharingDiscoveries(current, size, userId);
+
+        call.enqueue(new Callback<ResponseBody<ImageShareListDto>>() {
+            @Override
+            public void onResponse(Call<ResponseBody<ImageShareListDto>> call, Response<ResponseBody<ImageShareListDto>> response) {
+                if (response.isSuccessful()) {
+                    // 修改成功，处理响应
+                    System.out.println("请求成功");
+                    System.out.println(response.body().getData());
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("请求失败");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody<ImageShareListDto>> call, Throwable t) {
+                System.out.println("服务器异常");
+            }
+        });
     }
 
     @Override

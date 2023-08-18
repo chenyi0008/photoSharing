@@ -1,60 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".api.PersonFragment">
+    android:padding="16dp"
+    android:background="#FFFFFF">
 
-    <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/profile_image"
+            android:id="@+id/userAvatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_user" />
+            android:layout_gravity="center_horizontal"
+            android:contentDescription=""
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/userID"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
 
         <TextView
             android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/profile_image"
-            android:layout_marginStart="20dp"
-            android:text="User Name" />
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
 
         <TextView
             android:id="@+id/gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/username"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="22dp"
-            android:layout_marginTop="13dp"
-            android:layout_toRightOf="@id/profile_image"
-            android:text="Gender" />
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
 
         <TextView
             android:id="@+id/bio"
-            android:layout_width="395dp"
-            android:layout_height="145dp"
-            android:layout_below="@id/gender"
-            android:layout_marginTop="101dp"
-            android:text="This is a bio" />
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
 
         <Button
-            android:id="@+id/edit_profile"
-            android:layout_width="277dp"
+            android:id="@+id/bt_edit"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/bio"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="50dp"
-            android:text="Edit Profile" />
+            android:layout_marginTop="20dp"
+            android:text="修改信息" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</FrameLayout>
+</ScrollView>
