@@ -9,9 +9,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.example.photosharing.api.ImmerseFragment;
-import com.example.photosharing.api.PersonFragment;
-import com.example.photosharing.api.TestFragment;
+import com.example.photosharing.fragment.ImmerseFragment;
+import com.example.photosharing.fragment.PersonFragment;
+import com.example.photosharing.fragment.TestFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

@@ -174,10 +174,10 @@ public class ExampleUnitTest {
     @Test
     public void UserUpdateTest(){
         UserInfoUpdateDto u = new UserInfoUpdateDto();
-        u.setAvatar("https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/14/41d6946b-b975-4667-9bca-58f4b31a4fc3.jpg");
-        u.setUsername("user1");
-        u.setId("1690980829649571840");
-        u.setIntroduce("hello");//注意 不能传中文 传中文会报错
+        u.setAvatar("https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/22/37d6042f-7be1-4e69-b084-f56bc624767d.jpg");
+        u.setUsername("admin");
+        u.setId("1691822872735125504");
+        u.setIntroduce("hello  everyone");//注意 不能传中文 传中文会报错
         u.setSex("1");//sex=1时 为男性  sex=0时 为女性
 
         RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
@@ -214,7 +214,7 @@ public class ExampleUnitTest {
         dto.setContent("content...");
         //注意 此处的ImageCode要从批量上传文件的api去获取
         dto.setImageCode("1690985100197629952");
-        dto.setPUserId("1690980829649571840");
+        dto.setPUserId("1691822872735125504");
         dto.setTitle("title1");
 
         RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
@@ -251,7 +251,7 @@ public class ExampleUnitTest {
     public void sharingDiscoveriesTest(){
         int current = 0; //第0页
         int size = 10;  //大小为10
-        String userId = "1690980829649571840";
+        String userId = "1691822872735125504";
 
         RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
         Call<ResponseBody<ImageShareListDto>> call = httpUtil.getSharingDiscoveries(current, size, userId);
