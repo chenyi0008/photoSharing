@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="30dp"
     tools:context=".RegisterActivity">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,12 +25,12 @@
         android:layout_marginTop="48dp">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="4dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_person_outline_black_24dp"/>
+            android:layout_marginLeft="22dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_person_outline_black_24dp" />
 
         <EditText
             android:id="@+id/et_account"
@@ -41,7 +42,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginEnd="48dp"
             android:layout_marginBottom="0dp"
-            android:hint="账号"
+            android:hint="account"
             android:inputType="text"
             android:maxLines="1" />
     </RelativeLayout>
@@ -51,11 +52,11 @@
         android:layout_marginTop="16dp">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="4dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentBottom="true"
+            android:layout_marginLeft="22dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/ic_lock_24"/>
 
         <EditText
@@ -66,48 +67,41 @@
             android:layout_marginBottom="0dp"
             android:layout_alignParentBottom="true"
             android:inputType="textPassword"
-            android:hint="密码"
+            android:hint="password"
             android:layout_marginStart="48dp"
             android:layout_marginEnd="48dp"
             android:maxLines="1"/>
 
         <ImageView
             android:id="@+id/iv_pwd_switch"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="9dp"
             android:src="@drawable/ic_visibility_off_24" />
     </RelativeLayout>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="16dp">
-<!--        <CheckBox-->
-<!--            android:id="@+id/cb_remember_pwd"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="?attr/colorPrimary"-->
 
-<!--            android:layout_marginLeft="8dp"-->
-<!--            android:text="Remember Password"-->
-<!--            android:layout_marginBottom="4dp"-->
-<!--            android:layout_alignParentStart="true"-->
-<!--            android:layout_alignParentBottom="true"/>-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_login"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Login"-->
-<!--            android:textColor="?attr/colorAccent" />-->
-<!--                    android:layout_alignBaseline="@id/cb_remember_pwd"-->
-<!--            android:layout_marginEnd="8dp"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_alignParentBottom="true"/>-->
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="10dp"
+            android:text="Already have an account?   Log in now "
+            android:textColor="@color/colorPrimary" />
     </RelativeLayout>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_weight="1"
@@ -118,19 +112,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:background="?attr/colorPrimary"
-            android:text="注册"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/button"
+            android:text="sign up"
             android:textColor="@android:color/white" />
 
-        <Button
-            android:id="@+id/bt_to_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="75dp"
-            android:background="?attr/colorPrimary"
-            android:text="去登陆"
-            android:textColor="@android:color/white" />
     </RelativeLayout>
 </LinearLayout>
