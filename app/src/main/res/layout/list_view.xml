@@ -7,33 +7,72 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="411dp"
-        android:layout_height="345dp"
+        android:layout_width="414dp"
+        android:layout_height="378dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <ImageView
+            android:id="@+id/iv_collect"
+            android:layout_width="40dp"
+            android:layout_height="38dp"
+            android:layout_alignBottom="@id/iv_image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="70dp"
+            android:layout_marginBottom="291dp"
+            android:background="#FFFFFF"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_uncollect_foreground" />
+
+        <ImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
+            android:layout_height="284dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:layout_marginTop="73dp"
+            android:layout_marginTop="92dp"
             android:layout_marginBottom="2dp"
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_content"
             style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="328dp"
-            android:layout_height="44dp"
+            android:layout_width="295dp"
+            android:layout_height="72dp"
             android:layout_alignTop="@id/iv_image"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="-360dp"
-            android:layout_marginTop="-43dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="-414dp"
+            android:layout_marginTop="-74dp"
+            android:layout_marginEnd="119dp"
+            android:layout_toEndOf="@id/iv_image"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_likenum"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="51dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="-60dp"
+            android:layout_marginTop="-86dp"
+            android:layout_marginEnd="9dp"
+            android:layout_toEndOf="@id/iv_image"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_collectnum"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="52dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="-60dp"
+            android:layout_marginTop="-36dp"
+            android:layout_marginEnd="9dp"
             android:layout_toEndOf="@id/iv_image"
             android:textSize="16sp" />
 
@@ -42,7 +81,7 @@
             style="@style/TextAppearance.AppCompat.Subhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/tv_title"
+            android:layout_alignStart="@id/tv_content"
             android:layout_alignBottom="@id/iv_image"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -50,16 +89,17 @@
             android:textSize="12sp" />
 
         <ImageView
-            android:id="@+id/iv_delete"
-            android:layout_width="27dp"
-            android:layout_height="30dp"
+            android:id="@+id/iv_like"
+            android:layout_width="40dp"
+            android:layout_height="38dp"
             android:layout_alignBottom="@id/iv_image"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="2dp"
-            android:layout_marginBottom="311dp"
+            android:layout_marginEnd="69dp"
+            android:layout_marginBottom="339dp"
             android:clickable="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_close_gray_24dp" />
+
+            app:srcCompat="@drawable/ic_unlike_foreground" />
 
         <View
             android:id="@+id/v_divider"

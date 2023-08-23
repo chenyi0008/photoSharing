@@ -660,8 +660,6 @@ public class ExampleUnitTest {
                     System.out.println(response.body().getCode());
                     System.out.println(response.body().getMsg());
                     System.out.println(response.body().getData().toString());
-
-
                 } else {
                     // 注册失败，处理错误情况
                     System.out.println("请求失败");

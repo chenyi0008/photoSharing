@@ -4,16 +4,24 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Debug;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.photosharing.R;
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
+import com.example.photosharing.model.ImageAdapter;
 import com.example.photosharing.model.ResponseBody;
 import com.example.photosharing.model.UserInfo;
+import com.example.photosharing.model.dto.ImageShareItemDto;
 import com.example.photosharing.model.dto.ImageShareListDto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +33,8 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class ImmerseFragment extends Fragment {
+    List<ImageShareItemDto> imageList=new ArrayList<ImageShareItemDto>();
+    View view;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,12 +68,16 @@ public class ImmerseFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        InitData();
+    }
+
+    private void InitData(){
 
         int current = 0; //第0页
         int size = 10;  //大小为10
@@ -79,6 +93,8 @@ public class ImmerseFragment extends Fragment {
                     // 修改成功，处理响应
                     System.out.println("请求成功");
                     System.out.println(response.body().getData());
+
+                    imageList=response.body().getData().getRecords();
                 } else {
                     // 注册失败，处理错误情况
                     System.out.println("请求失败");
@@ -95,7 +111,14 @@ public class ImmerseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        view=inflater.inflate(R.layout.fragment_immerse, container, false);
+
+        ImageAdapter imageAdapter = new ImageAdapter(getActivity() ,
+                R.layout.list_view , imageList);
+        ListView lvImageList =view.findViewById(R.id.lv_image_list);
+        lvImageList.setAdapter(imageAdapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_immerse, container, false);
+        return view;
     }
 }
