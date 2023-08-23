@@ -8,6 +8,7 @@ import com.example.photosharing.model.User;
 import com.example.photosharing.model.UserInfo;
 import com.example.photosharing.model.dto.CommentDto;
 import com.example.photosharing.model.dto.ImageShareDto;
+import com.example.photosharing.model.dto.ImageShareItemDto;
 import com.example.photosharing.model.dto.ImageShareListDto;
 import com.example.photosharing.model.dto.UserInfoUpdateDto;
 
@@ -235,8 +236,12 @@ public interface RetrofitRequest_Interface {
     @POST("/member/photo/share/save")
     Call<ResponseBody> saveImageSharing(@Body ImageShareDto dto);
 
+    @GET("/member/photo/share/detail")
+    Call<ResponseBody<ImageShareItemDto>> getShareById(@Query("shareId") String shareId,
+                                                       @Query("userId") String userId);
 
-
+    @GET("/member/photo/user/getUserByName")
+    Call<ResponseBody<UserInfo>> getUserByName(@Query("username") String username);
 
 
 

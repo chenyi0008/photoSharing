@@ -11,4 +11,12 @@
         android:layout_height="match_parent"
         android:text="测试界面" />
 
+    <Button
+        android:id="@+id/viewDetailButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Detail"
+        android:onClick="openDetailActivity" />
+
+
 </FrameLayout>

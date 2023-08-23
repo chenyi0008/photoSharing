@@ -13,11 +13,13 @@ import com.example.photosharing.model.User;
 import com.example.photosharing.model.UserInfo;
 import com.example.photosharing.model.dto.CommentDto;
 import com.example.photosharing.model.dto.ImageShareDto;
+import com.example.photosharing.model.dto.ImageShareItemDto;
 import com.example.photosharing.model.dto.ImageShareListDto;
 import com.example.photosharing.model.dto.UserInfoUpdateDto;
 import com.example.photosharing.util.Uploader;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -91,7 +93,6 @@ public class ExampleUnitTest {
      */
     @Test
     public void loginTest() throws InterruptedException {
-        final CountDownLatch latch = new CountDownLatch(1);
 
 
         String username = "admin";
@@ -127,7 +128,6 @@ public class ExampleUnitTest {
             }
         });
 
-        latch.await(2, TimeUnit.SECONDS);
 
     }
 
@@ -787,5 +787,90 @@ public class ExampleUnitTest {
             }
         });
     }
+
+
+    /**
+     * 获取单个图文分享的详情
+     */
+    @Test
+    public void getShareByIdTest() throws IOException {
+        String userId = "1691822872735125504";
+        String shareId = "4877";
+
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody<ImageShareItemDto>> call = httpUtil.getShareById(shareId, userId);
+
+        call.enqueue(new Callback<ResponseBody<ImageShareItemDto>>() {
+            @Override
+            public void onResponse(Call<ResponseBody<ImageShareItemDto>> call, Response<ResponseBody<ImageShareItemDto>> response) {
+                if (response.isSuccessful()) {
+                    // 修改成功，处理响应
+                    System.out.println("请求成功");
+                    System.out.println(response.body().getMsg());
+                    System.out.println(response.body().getData().toString());
+
+
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("请求失败");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody<ImageShareItemDto>> call, Throwable t) {
+                System.out.println("服务器异常");
+            }
+        });
+
+        ImageShareItemDto data = call.execute().body().getData();
+        System.out.println(data.toString());
+    }
+
+
+    /**
+     * 根据用户名获取用户信息
+     * @throws InterruptedException
+     */
+    @Test
+    public void getUserByNameTest() throws InterruptedException {
+
+
+        String username = "admin";
+
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody<UserInfo>> call = httpUtil.getUserByName(username);
+
+        call.enqueue(new Callback<ResponseBody<UserInfo>>() {
+            @Override
+            public void onResponse(Call<ResponseBody<UserInfo>> call, Response<ResponseBody<UserInfo>> response) {
+                if (response.isSuccessful()) {
+                    // 注册成功，处理响应
+                    System.out.println("请求成功，处理响应");
+                    System.out.println(response.body());
+
+                    UserInfo userInfo = response.body().getData();
+                    System.out.println(userInfo);
+                    System.out.println(response.body().getMsg());
+
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("登录失败，处理错误情况");
+                    System.out.println(call.request().url());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody<UserInfo>> call, Throwable t) {
+                // 处理网络请求失败
+                System.out.println("处理网络请求失败");
+            }
+        });
+
+
+    }
+
+
 
 }
