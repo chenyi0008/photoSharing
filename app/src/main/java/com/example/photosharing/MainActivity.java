@@ -7,14 +7,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.os.Debug;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.example.photosharing.Adapter.ImageAdapter;
 import com.example.photosharing.fragment.ImmerseFragment;
 import com.example.photosharing.fragment.PersonFragment;
 import com.example.photosharing.fragment.TestFragment;
