@@ -1,4 +1,4 @@
-package com.example.photosharing.api;
+package com.example.photosharing.fragment;
 
 import android.os.Bundle;
 

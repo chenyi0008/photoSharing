@@ -1,15 +1,16 @@
-package com.example.photosharing.api;
+package com.example.photosharing.fragment;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.photosharing.R;
+import com.example.photosharing.api.MyRetrofit;
+import com.example.photosharing.api.RetrofitRequest_Interface;
 import com.example.photosharing.model.ResponseBody;
 import com.example.photosharing.model.UserInfo;
 import com.example.photosharing.model.dto.ImageShareListDto;

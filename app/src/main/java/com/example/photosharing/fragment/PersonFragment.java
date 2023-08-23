@@ -1,4 +1,4 @@
-package com.example.photosharing.api;
+package com.example.photosharing.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,9 +7,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.Debug;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.photosharing.LoginActivity;
 import com.example.photosharing.ModifyInformationActivity;
 import com.example.photosharing.R;
-import com.example.photosharing.RegisterActivity;
 import com.example.photosharing.model.UserInfo;
+import com.example.photosharing.util.ImageDownloader;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,16 +88,14 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
         userBio = view.findViewById(R.id.bio);
         editBtn = view.findViewById(R.id.bt_edit);
 
-        Bitmap bitmap = null;
-        try {
-            byte[] bitmapArray;
-            bitmapArray = Base64.decode(UserInfo.getInstance().getAvatar(), Base64.DEFAULT);
-            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0,
-                    bitmapArray.length);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        userAvater.setImageBitmap(bitmap);
+        System.out.println(UserInfo.getInstance().getAvatar());
+        final Bitmap[] bitmap = {null};
+
+        new ImageDownloader(userAvater).execute(UserInfo.getInstance().getAvatar());
+
+
+
+        userAvater.setImageBitmap(bitmap[0]);
         userID.setText("ID：" + UserInfo.getInstance().getId());
         userName.setText("用户名：" + UserInfo.getInstance().getUsername());
         userGender.setText("性别：" + UserInfo.getInstance().getSex());

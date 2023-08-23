@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +37,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Boolean bPwdSwitch = false;
     private EditText etPwd;
     private EditText etAccount;
+    private CheckBox cbRememberPwd;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final ImageView ivPwdSwitch = findViewById(R.id.iv_pwd_switch);
         etPwd = findViewById(R.id.et_pwd);
         etAccount = findViewById(R.id.et_account);
+        cbRememberPwd = findViewById(R.id.cb_remember_pwd);
         Button btLogin = findViewById(R.id.bt_login);
-        Button btSign=findViewById(R.id.bt_to_sign);
+        TextView btSign=findViewById(R.id.tv_sign_up);
 
         btLogin.setOnClickListener(this);
         btSign.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +82,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
+
+        String spFileName = getResources()
+                .getString(R.string.shared_preferences_file_name);
+        String accountKey = getResources()
+                .getString(R.string.login_account_name);
+        String passwordKey = getResources()
+                .getString(R.string.login_password);
+        String rememberPasswordKey = getResources()
+                .getString(R.string.login_remember_password);
+        SharedPreferences spFile = getSharedPreferences(spFileName, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = spFile.edit();
+        String account = spFile.getString(accountKey,null);
+        String password = spFile.getString(passwordKey,null);
+        Boolean rememberPassword = spFile.getBoolean(rememberPasswordKey, false);
+        if (account != null && !TextUtils.isEmpty(account)) {
+            etAccount.setText(account);
+        }
+        if (password != null && !TextUtils.isEmpty (password)) {
+            etPwd.setText(password);
+        }
+        cbRememberPwd.setChecked(rememberPassword);
+
+
     }
     @Override
     public void onClick(View view) {
@@ -95,16 +123,50 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     System.out.println("请求成功，处理响应");
                     System.out.println(response.body());
 
-                    //UserInfo.getInstance().SetInfo(response.body().getData());
                     UserInfo userInfo=response.body().getData();
                     UserInfo.SetInstance(userInfo);
 
-                    Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                    //System.out.println(userInfo);
-                    System.out.println(response.body().getMsg());
-                    Intent intent = new Intent(LoginActivity.this,
-                            MainActivity.class);
-                    startActivity(intent);
+                    if (response.body().getMsg().equals("登录成功")){
+                        Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                        //System.out.println(userInfo);
+                        System.out.println(response.body().getMsg());
+                        Intent intent = new Intent(LoginActivity.this,
+                                MainActivity.class);
+
+                        //记住密码
+                        String spFileName = getResources()
+                                .getString(R.string.shared_preferences_file_name);
+                        String accountKey = getResources()
+                                .getString(R.string.login_account_name);
+                        String passwordKey = getResources()
+                                .getString(R.string.login_password);
+                        String rememberPasswordKey = getResources()
+                                .getString(R.string.login_remember_password);
+                        SharedPreferences spFile = getSharedPreferences(
+                                spFileName,
+                                Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = spFile.edit();
+                        if (cbRememberPwd.isChecked()) {
+                            String account = etAccount.getText().toString();
+                            String password = etPwd.getText().toString();
+
+                            editor.putString(accountKey, account);
+                            editor.putString(passwordKey, password);
+                            editor.putBoolean(rememberPasswordKey, true);
+                            editor.apply();
+                        }else{
+                            editor.remove(accountKey);
+                            editor.remove(passwordKey);
+                            editor.remove(rememberPasswordKey);
+                            editor.apply();
+                        }
+
+
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(LoginActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
                     System.out.println("登录失败，处理错误情况");
                     System.out.println(call.request().url());
@@ -118,10 +180,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        try {
-            latch.await(2, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
+
 }

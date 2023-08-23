@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         final ImageView ivPwdSwitch = findViewById(R.id.iv_pwd_switch);
         etPwd = findViewById(R.id.et_pwd);
         etAccount = findViewById(R.id.et_account);
-        Button btLogin = findViewById(R.id.bt_to_login);
+        TextView btLogin = findViewById(R.id.tv_login);
         Button btSign=findViewById(R.id.bt_sign);
 
         btSign.setOnClickListener(this);
