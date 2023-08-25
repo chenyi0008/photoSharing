@@ -50,7 +50,10 @@
             android:name=".ShareDetailActivity"
             android:label="Share Detail Activity">
         </activity>
-
+        <activity
+            android:name=".ShareActivity"
+            android:label="Share Activity">
+    </activity>
     </application>
 
 

@@ -90,4 +90,16 @@ public class MainActivity extends AppCompatActivity {
         // 启动分享详情页面
         startActivity(intent);
     }
+
+    public void openCreateShareActivity(View view) {
+        // 创建Intent
+        Intent intent = new Intent(this, ShareActivity.class);
+
+
+        // 将 ShareDetailItem 对象传递给分享详情页面
+//        intent.putExtra("friend_circle_item");
+
+        // 启动分享详情页面
+        startActivity(intent);
+    }
 }
