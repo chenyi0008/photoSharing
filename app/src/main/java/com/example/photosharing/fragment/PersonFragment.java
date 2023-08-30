@@ -37,7 +37,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
     private String mParam2;
 
     private ImageView userAvater;
-    private TextView userID;
+//    private TextView userID;
     private TextView userName;
     private TextView userGender;
     private TextView userBio;
@@ -82,7 +82,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_person, container, false);
 
         userAvater = view.findViewById(R.id.userAvatar);
-        userID = view.findViewById(R.id.userID);
+//        userID = view.findViewById(R.id.userID);
         userName = view.findViewById(R.id.username);
         userGender = view.findViewById(R.id.gender);
         userBio = view.findViewById(R.id.bio);
@@ -94,10 +94,12 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
         new ImageDownloader(userAvater).execute(UserInfo.getInstance().getAvatar());
 
         userAvater.setImageBitmap(bitmap[0]);
-        userID.setText("ID：" + UserInfo.getInstance().getId());
-        userName.setText("用户名：" + UserInfo.getInstance().getUsername());
-        userGender.setText("性别：" + UserInfo.getInstance().getSex());
-        userBio.setText("个人介绍：" + UserInfo.getInstance().getIntroduce());
+//        userID.setText("ID：" + UserInfo.getInstance().getId());
+        userName.setText(" " + UserInfo.getInstance().getUsername());
+        boolean sex = UserInfo.getInstance().getSex() == null || UserInfo.getInstance().getSex().equals("0");
+
+        userGender.setText(" " + (sex ? "Male" : "Female"));
+        userBio.setText(" " + UserInfo.getInstance().getIntroduce());
 
         editBtn.setOnClickListener(this);
 

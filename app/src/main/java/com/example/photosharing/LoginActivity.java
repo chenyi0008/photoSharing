@@ -108,7 +108,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     @Override
     public void onClick(View view) {
-        final CountDownLatch latch = new CountDownLatch(1);
 
         String username = etAccount.getText().toString();
         String password = etPwd.getText().toString();
@@ -169,7 +168,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 } else {
                     System.out.println("登录失败，处理错误情况");
-                    System.out.println(call.request().url());
                 }
             }
 
