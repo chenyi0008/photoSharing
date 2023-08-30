@@ -3,6 +3,7 @@ package com.example.photosharing;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -22,15 +23,16 @@ public class MainActivity extends AppCompatActivity {
     private ImmerseFragment immerseFragment;
     private PersonFragment personFragment;
     private TestFragment testFragment;
+    private FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        immerseFragment = new ImmerseFragment();
         personFragment = new PersonFragment();
         testFragment = new TestFragment();
+        immerseFragment = new ImmerseFragment();
 
         frameLayout = findViewById(R.id.home_fragment);
 
@@ -60,6 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchFragment(Fragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.home_fragment, fragment).commitNow();
+        transaction.replace(R.id.home_fragment, fragment).commit();
     }
 }

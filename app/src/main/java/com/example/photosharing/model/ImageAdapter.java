@@ -43,7 +43,6 @@ public class ImageAdapter extends ArrayAdapter<ImageShareItemDto> {
     public View getView(int position, View convertView, ViewGroup parent){
         ImageShareItemDto imgItem=getItem(position);
         View view;
-
         view= LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
 
         ImageView image=view.findViewById(R.id.iv_image);
