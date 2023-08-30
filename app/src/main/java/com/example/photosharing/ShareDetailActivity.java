@@ -3,11 +3,9 @@ package com.example.photosharing;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,15 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
+
 import com.example.photosharing.Adapter.CommentAdapter;
 import com.example.photosharing.Adapter.ImageAdapter;
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
-import com.example.photosharing.model.Comment;
 import com.example.photosharing.model.CommentList;
 import com.example.photosharing.model.ResponseBody;
 import com.example.photosharing.model.ShareDetailItem;
@@ -31,13 +27,8 @@ import com.example.photosharing.model.UserInfo;
 import com.example.photosharing.model.dto.CommentDto;
 import com.example.photosharing.model.dto.ImageShareItemDto;
 import com.example.photosharing.util.ImageDownloader;
-import com.example.photosharing.util.Uploader;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,6 +40,7 @@ public class ShareDetailActivity extends AppCompatActivity {
     private TextView usernameTextView, contentTextView, titleTextView;
 
     private ImageView userAvatar;
+    private Button focus;
 
     private String username = "";
 
@@ -70,6 +62,7 @@ public class ShareDetailActivity extends AppCompatActivity {
         userAvatar = findViewById(R.id.userAvatar);
         commentEditText = findViewById(R.id.commentEditText);
         submitCommentButton = findViewById(R.id.submitCommentButton);
+        focus=findViewById(R.id.bt_save);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -108,6 +101,72 @@ public class ShareDetailActivity extends AppCompatActivity {
                     titleTextView.setText("标题: " + imageShareItemDto.getTitle());
                     username = imageShareItemDto.getUsername();
 
+                    if(imageShareItemDto.getHasFocus()) focus.setText("取消关注");
+                    else focus.setText("关注");
+                    focus.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(!imageShareItemDto.getHasFocus()){
+                                String focusUserId = imageShareItemDto.getpUserId();
+                                String userId = UserInfo.getInstance().getId();
+
+                                RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+                                Call<ResponseBody> call = httpUtil.addFollow(focusUserId, userId);
+
+                                call.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        if (response.isSuccessful()) {
+                                            // 修改成功，处理响应
+                                            System.out.println("请求成功");
+                                            if(response.body().getMsg().equals("不可以关注自己")){
+                                                Toast.makeText(ShareDetailActivity.this, "不可以关注自己", Toast.LENGTH_SHORT).show();
+                                            }
+                                            else{
+                                                focus.setText("取消关注");
+                                                imageShareItemDto.setHasFocus(true);
+                                            }
+                                        } else {
+                                            // 注册失败，处理错误情况
+                                            System.out.println("请求失败");
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        System.out.println("服务器异常");
+                                    }
+                                });
+                            }
+                            else{
+                                String focusUserId = imageShareItemDto.getpUserId();
+                                String userId = UserInfo.getInstance().getId();
+
+                                RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+                                Call<ResponseBody> call = httpUtil.unFollow(focusUserId, userId);
+
+                                call.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        if (response.isSuccessful()) {
+                                            // 修改成功，处理响应
+                                            System.out.println("请求成功");
+                                            focus.setText("关注");
+                                            imageShareItemDto.setHasFocus(false);
+                                        } else {
+                                            // 注册失败，处理错误情况
+                                            System.out.println("请求失败");
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        System.out.println("服务器异常");
+                                    }
+                                });
+                            }
+                        }
+                    });
 
                     Call<ResponseBody<UserInfo>> call2 = httpUtil.getUserByName(username);
                     call2.enqueue(new Callback<ResponseBody<UserInfo>>() {
@@ -225,63 +284,63 @@ public class ShareDetailActivity extends AppCompatActivity {
         });
     }
 
-    public List<Comment> getComments(){
-        List<Comment> comments = new ArrayList<>();
-
-        Comment comment1 = new Comment();
-        comment1.setContent("This is a great post!");
-        comment1.setUserName("Jack");
-        comments.add(comment1);
-
-        Comment comment2 = new Comment();
-        comment2.setContent("Thanks for sharing.");
-        comment2.setUserName("Chen");
-        comments.add(comment2);
-
-        Comment comment3 = new Comment();
-        comment3.setContent("Hello world.");
-        comment3.setUserName("Jerry");
-        comments.add(comment3);
-
-        Comment comment4 = new Comment();
-        comment4.setContent("Nice work!");
-        comment4.setUserName("Emily");
-        comments.add(comment4);
-
-        Comment comment5 = new Comment();
-        comment5.setContent("I enjoyed reading this.");
-        comment5.setUserName("Alice");
-        comments.add(comment5);
-
-        Comment comment6 = new Comment();
-        comment6.setContent("Keep it up!");
-        comment6.setUserName("Alex");
-        comments.add(comment6);
-
-        Comment comment7 = new Comment();
-        comment7.setContent("Impressive.");
-        comment7.setUserName("Grace");
-        comments.add(comment7);
-
-        Comment comment8 = new Comment();
-        comment8.setContent("You've got my vote.");
-        comment8.setUserName("Ryan");
-        comments.add(comment8);
-
-        Comment comment9 = new Comment();
-        comment9.setContent("Excellent content!");
-        comment9.setUserName("Sophia");
-        comments.add(comment9);
-
-        Comment comment10 = new Comment();
-        comment10.setContent("Very informative.");
-        comment10.setUserName("Oliver");
-        comments.add(comment10);
-
-        return comments;
-
-
-    }
+//    public List<Comment> getComments(){
+//        List<Comment> comments = new ArrayList<>();
+//
+//        Comment comment1 = new Comment();
+//        comment1.setContent("This is a great post!");
+//        comment1.setUserName("Jack");
+//        comments.add(comment1);
+//
+//        Comment comment2 = new Comment();
+//        comment2.setContent("Thanks for sharing.");
+//        comment2.setUserName("Chen");
+//        comments.add(comment2);
+//
+//        Comment comment3 = new Comment();
+//        comment3.setContent("Hello world.");
+//        comment3.setUserName("Jerry");
+//        comments.add(comment3);
+//
+//        Comment comment4 = new Comment();
+//        comment4.setContent("Nice work!");
+//        comment4.setUserName("Emily");
+//        comments.add(comment4);
+//
+//        Comment comment5 = new Comment();
+//        comment5.setContent("I enjoyed reading this.");
+//        comment5.setUserName("Alice");
+//        comments.add(comment5);
+//
+//        Comment comment6 = new Comment();
+//        comment6.setContent("Keep it up!");
+//        comment6.setUserName("Alex");
+//        comments.add(comment6);
+//
+//        Comment comment7 = new Comment();
+//        comment7.setContent("Impressive.");
+//        comment7.setUserName("Grace");
+//        comments.add(comment7);
+//
+//        Comment comment8 = new Comment();
+//        comment8.setContent("You've got my vote.");
+//        comment8.setUserName("Ryan");
+//        comments.add(comment8);
+//
+//        Comment comment9 = new Comment();
+//        comment9.setContent("Excellent content!");
+//        comment9.setUserName("Sophia");
+//        comments.add(comment9);
+//
+//        Comment comment10 = new Comment();
+//        comment10.setContent("Very informative.");
+//        comment10.setUserName("Oliver");
+//        comments.add(comment10);
+//
+//        return comments;
+//
+//
+//    }
 
     public void refreshComment(){
         RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();

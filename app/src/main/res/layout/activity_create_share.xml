@@ -146,14 +146,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:text="upload photos" />
+                android:text="上传图片" />
 
             <Button
                 android:id="@+id/submitCommentButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:text="share my photos" />
+                android:text="分享我的图片" />
 
         </LinearLayout>
 

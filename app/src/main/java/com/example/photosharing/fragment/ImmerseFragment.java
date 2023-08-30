@@ -1,5 +1,6 @@
 package com.example.photosharing.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.photosharing.R;
+import com.example.photosharing.ShareActivity;
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
 import com.example.photosharing.model.ImageAdapter;
@@ -114,6 +116,15 @@ public class ImmerseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_immerse, container, false);
+
+        view.findViewById(R.id.bt_add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ShareActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
     private void UpdateView(View view){

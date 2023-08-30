@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.photosharing.Adapter.ImageAdapter;
+import com.example.photosharing.MoreActivity;
 import com.example.photosharing.R;
 import com.example.photosharing.ShareActivity;
 import com.example.photosharing.ShareDetailActivity;
@@ -71,14 +72,35 @@ public class TestFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_test, container, false);
 
-        view.findViewById(R.id.viewCreateShareButton).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.iv_mycollect).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 创建Intent
-                Intent intent = new Intent(getActivity(), ShareActivity.class);
-                // 将 ShareDetailItem 对象传递给分享详情页面
-        //        intent.putExtra("friend_circle_item");
-
+                Intent intent = new Intent(getActivity(), MoreActivity.class);
+                intent.putExtra("type", 0);
+                startActivity(intent);
+            }
+        });
+        view.findViewById(R.id.iv_mylike).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MoreActivity.class);
+                intent.putExtra("type", 1);
+                startActivity(intent);
+            }
+        });
+        view.findViewById(R.id.iv_myown).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MoreActivity.class);
+                intent.putExtra("type", 2);
+                startActivity(intent);
+            }
+        });
+        view.findViewById(R.id.iv_myfocus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MoreActivity.class);
+                intent.putExtra("type", 3);
                 startActivity(intent);
             }
         });

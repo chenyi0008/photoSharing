@@ -43,6 +43,10 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".MoreActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".ModifyInformationActivity"
             android:exported="true">
         </activity>

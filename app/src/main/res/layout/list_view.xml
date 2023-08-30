@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bt_focus"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/shareitem"
-        android:layout_width="414dp"
-        android:layout_height="378dp"
+        android:layout_width="411dp"
+        android:layout_height="502dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
@@ -30,24 +30,50 @@
         <ImageView
             android:id="@+id/iv_image"
             android:layout_width="match_parent"
-            android:layout_height="284dp"
+            android:layout_height="342dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
-            android:layout_marginTop="54dp"
-            android:layout_marginBottom="41dp"
+            android:layout_marginTop="124dp"
+            android:layout_marginBottom="36dp"
             android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/tv_content"
             style="@style/TextAppearance.AppCompat.Subhead"
-            android:layout_width="412dp"
-            android:layout_height="51dp"
+            android:layout_width="409dp"
+            android:layout_height="41dp"
             android:layout_alignTop="@id/iv_image"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="-416dp"
-            android:layout_marginTop="-36dp"
-            android:layout_marginEnd="3dp"
+            android:layout_marginStart="-410dp"
+            android:layout_marginTop="-42dp"
+            android:layout_marginEnd="0dp"
+            android:layout_toEndOf="@id/iv_image"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="265dp"
+            android:layout_height="38dp"
+            android:layout_alignTop="@id/iv_image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="-410dp"
+            android:layout_marginTop="-81dp"
+            android:layout_marginEnd="144dp"
+            android:layout_toEndOf="@id/iv_image"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="95dp"
+            android:layout_height="34dp"
+            android:layout_alignTop="@id/iv_image"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="-368dp"
+            android:layout_marginTop="-120dp"
+            android:layout_marginEnd="273dp"
             android:layout_toEndOf="@id/iv_image"
             android:textSize="16sp" />
 
@@ -58,9 +84,9 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/iv_image"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="-122dp"
-            android:layout_marginTop="292dp"
-            android:layout_marginEnd="71dp"
+            android:layout_marginStart="-119dp"
+            android:layout_marginTop="350dp"
+            android:layout_marginEnd="68dp"
             android:layout_toEndOf="@id/iv_image"
             android:textSize="16sp" />
 
@@ -71,9 +97,9 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/iv_image"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="-298dp"
-            android:layout_marginTop="294dp"
-            android:layout_marginEnd="247dp"
+            android:layout_marginStart="-296dp"
+            android:layout_marginTop="348dp"
+            android:layout_marginEnd="245dp"
             android:layout_toEndOf="@id/iv_image"
             android:textSize="16sp" />
 
@@ -111,5 +137,13 @@
             android:layout_alignParentBottom="true"
             android:background="@color/white" />
 
+        <ImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="45dp"
+            android:layout_height="42dp"
+            android:contentDescription=""
+            tools:src="@tools:sample/avatars" />
+
     </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

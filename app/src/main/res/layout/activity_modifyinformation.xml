@@ -19,7 +19,7 @@
         android:id="@+id/btn_upload_image"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Upload a new avatar"
+        android:text="上传新头像"
         android:onClick="onUploadImageClicked"
         android:layout_gravity="center_horizontal"/>
 
@@ -32,7 +32,7 @@
             android:id="@+id/usernameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="           Name:"
+            android:text="用户名:"
             android:textSize="18sp"
             android:textStyle="bold"
             android:height="45dp"
@@ -57,7 +57,7 @@
             android:id="@+id/gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="         Gender:"
+            android:text="性别:"
             android:textSize="18sp"
             android:textStyle="bold"
             android:height="45dp"
@@ -78,7 +78,7 @@
             android:id="@+id/titleLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Introduction:"
+            android:text="介绍:"
             android:textSize="18sp"
             android:textStyle="bold"
             android:height="45dp"
@@ -104,7 +104,7 @@
         android:id="@+id/btn_save"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:text="保存"
         android:onClick="save"
         android:layout_gravity="center_horizontal"/>
 

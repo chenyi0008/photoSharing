@@ -15,9 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.photosharing.LoginActivity;
 import com.example.photosharing.R;
 import com.example.photosharing.ShareActivity;
 import com.example.photosharing.ShareDetailActivity;
@@ -64,10 +67,7 @@ public class ImageAdapter extends ArrayAdapter<ImageShareItemDto> {
                 String timestamp = imgItem.getCreateTime();
                 String content = imgItem.getContent();
                 List<String> images = imgItem.getImageUrlList();
-//                List<String> images = Arrays.asList(
-//                        "https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/14/cebe9e74-bf70-41f8-bf7e-d4de0607cdce.jpg",
-//                        "https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/14/c437187d-6160-4f24-b6fc-cdba561faacc.jpg"
-//                );
+
                 String shareId = imgItem.getId();
                 String userId = imgItem.getpUserId();
                 ShareDetailItem item = new ShareDetailItem(shareId, userId);
@@ -81,17 +81,51 @@ public class ImageAdapter extends ArrayAdapter<ImageShareItemDto> {
         });
 
         ImageView image=view.findViewById(R.id.iv_image);
+        ImageView userAvatar=view.findViewById(R.id.user_avatar);
+        TextView name=view.findViewById(R.id.tv_name);
+        TextView title=view.findViewById(R.id.tv_title);
         TextView content=view.findViewById(R.id.tv_content);
         ImageView hasLike=view.findViewById(R.id.iv_like);
         TextView likeNum=view.findViewById(R.id.tv_likenum);
         ImageView hasCollect=view.findViewById(R.id.iv_collect);
         TextView collectNum=view.findViewById(R.id.tv_collectnum);
+
+
+        RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+        Call<ResponseBody<UserInfo>> call = httpUtil.getUserByName(imgItem.getUsername());
+        call.enqueue(new Callback<ResponseBody<UserInfo>>() {
+            @Override
+            public void onResponse(Call<ResponseBody<UserInfo>> call, Response<ResponseBody<UserInfo>> response) {
+                if (response.isSuccessful()) {
+                    // 注册成功，处理响应
+                    System.out.println("请求成功，处理响应");
+                    if(response.body().getData()!=null){
+                        final Bitmap[] bitmap = {null};
+                        new ImageDownloader(userAvatar).execute(response.body().getData().getAvatar());
+                        userAvatar.setImageBitmap(bitmap[0]);
+                    }
+                } else {
+                    // 注册失败，处理错误情况
+                    System.out.println("登录失败，处理错误情况");
+                    System.out.println(call.request().url());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody<UserInfo>> call, Throwable t) {
+                System.out.println("失败");
+            }
+        });
         final Bitmap[] bitmap = {null};
         new ImageDownloader(image).execute(imgItem.getImageUrlList().get(0));
         image.setImageBitmap(bitmap[0]);
 
+        name.setText(imgItem.getUsername());
+        title.setText(imgItem.getTitle());
         content.setText(imgItem.getContent());
-        likeNum.setText(Integer.toString(imgItem.getLikeNum()));
+        if(imgItem.getLikeNum()!=null) likeNum.setText(Integer.toString(imgItem.getLikeNum()));
+        else likeNum.setText("未找到数据");
         if(imgItem.getHasLike()){
             hasLike.setImageResource(R.drawable.ic_like_foreground);
         }
@@ -167,7 +201,8 @@ public class ImageAdapter extends ArrayAdapter<ImageShareItemDto> {
             }
         });
 
-        collectNum.setText(Integer.toString(imgItem.getCollectNum()));
+        if(imgItem.getCollectNum()!=null) collectNum.setText(Integer.toString(imgItem.getCollectNum()));
+        else collectNum.setText("未获取到数据");
         if (imgItem.getHasCollect()){
             hasCollect.setImageResource(R.drawable.ic_collect_foreground);
         }
