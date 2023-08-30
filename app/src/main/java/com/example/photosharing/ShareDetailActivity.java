@@ -103,9 +103,9 @@ public class ShareDetailActivity extends AppCompatActivity {
                     System.out.println(response.body().getMsg());
                     System.out.println(response.body().getData().toString());
                     ImageShareItemDto imageShareItemDto = response.body().getData();
-                    usernameTextView.setText("author: "+ imageShareItemDto.getUsername());
-                    contentTextView.setText("content: "+ imageShareItemDto.getContent());
-                    titleTextView.setText("title: " + imageShareItemDto.getTitle());
+                    usernameTextView.setText("用户名: "+ imageShareItemDto.getUsername());
+                    contentTextView.setText(imageShareItemDto.getContent());
+                    titleTextView.setText("标题: " + imageShareItemDto.getTitle());
                     username = imageShareItemDto.getUsername();
 
 
@@ -215,12 +215,6 @@ public class ShareDetailActivity extends AppCompatActivity {
                             System.out.println("服务器异常");
                         }
                     });
-
-
-
-
-
-
 
                     commentEditText.setText("");
 //                    showCommentSuccess();

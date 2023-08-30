@@ -68,40 +68,4 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.home_fragment, fragment).commit();
     }
-
-
-    public void openDetailActivity(View view) {
-        // 创建Intent
-        Intent intent = new Intent(this, ShareDetailActivity.class);
-
-        // 创建一个示例 ShareDetailItem 对象，你可以替换成实际的数据
-        String username = "John";
-        String timestamp = "2023-08-23 10:30 AM";
-        String content = "This is a test post.";
-        List<String> images = Arrays.asList(
-                "https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/14/cebe9e74-bf70-41f8-bf7e-d4de0607cdce.jpg",
-                "https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/14/c437187d-6160-4f24-b6fc-cdba561faacc.jpg"
-        );
-        String shareId = "4877";
-        String userId = "1691822872735125504";
-        ShareDetailItem item = new ShareDetailItem(shareId, userId);
-
-        // 将 ShareDetailItem 对象传递给分享详情页面
-        intent.putExtra("friend_circle_item", item);
-
-        // 启动分享详情页面
-        startActivity(intent);
-    }
-
-    public void openCreateShareActivity(View view) {
-        // 创建Intent
-        Intent intent = new Intent(this, ShareActivity.class);
-
-
-        // 将 ShareDetailItem 对象传递给分享详情页面
-//        intent.putExtra("friend_circle_item");
-
-        // 启动分享详情页面
-        startActivity(intent);
-    }
 }

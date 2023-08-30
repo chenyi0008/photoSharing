@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 
 import com.example.photosharing.Adapter.ImageAdapter;
 import com.example.photosharing.R;
+import com.example.photosharing.ShareActivity;
 import com.example.photosharing.ShareDetailActivity;
+import com.example.photosharing.model.ShareDetailItem;
 
 import java.util.Arrays;
 import java.util.List;
@@ -61,13 +63,26 @@ public class TestFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_test, container, false);
+        View view=inflater.inflate(R.layout.fragment_test, container, false);
+
+        view.findViewById(R.id.viewCreateShareButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 创建Intent
+                Intent intent = new Intent(getActivity(), ShareActivity.class);
+                // 将 ShareDetailItem 对象传递给分享详情页面
+        //        intent.putExtra("friend_circle_item");
+
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 }

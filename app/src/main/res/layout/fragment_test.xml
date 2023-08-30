@@ -19,18 +19,17 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/viewDetailButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/viewCreateShareButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="openDetailActivity"
-            android:text="View Detail" />
+            android:text="新的分享" />
 
         <Button
-            android:id="@+id/viewCreateShareButton"
-            android:layout_width="wrap_content"
+            android:id="@+id/viewCollect"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="openCreateShareActivity"
-            android:text="View Create Share" />
+            android:text="查看我的收藏" />
 
     </LinearLayout>
 

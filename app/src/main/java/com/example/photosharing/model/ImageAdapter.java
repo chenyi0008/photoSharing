@@ -1,6 +1,11 @@
 package com.example.photosharing.model;
 
+import static android.app.PendingIntent.getActivity;
+
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Debug;
@@ -14,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.photosharing.R;
+import com.example.photosharing.ShareActivity;
+import com.example.photosharing.ShareDetailActivity;
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
 import com.example.photosharing.model.dto.ImageShareItemDto;
@@ -21,6 +28,8 @@ import com.example.photosharing.util.ImageDownloader;
 
 import org.w3c.dom.Text;
 
+import java.lang.invoke.VarHandle;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -44,6 +53,32 @@ public class ImageAdapter extends ArrayAdapter<ImageShareItemDto> {
         ImageShareItemDto imgItem=getItem(position);
         View view;
         view= LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
+
+        view.findViewById(R.id.shareitem).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(parent.getContext(), ShareDetailActivity.class);
+
+                // 创建一个示例 ShareDetailItem 对象，你可以替换成实际的数据
+                String username = imgItem.getUsername();
+                String timestamp = imgItem.getCreateTime();
+                String content = imgItem.getContent();
+                List<String> images = imgItem.getImageUrlList();
+//                List<String> images = Arrays.asList(
+//                        "https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/14/cebe9e74-bf70-41f8-bf7e-d4de0607cdce.jpg",
+//                        "https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/14/c437187d-6160-4f24-b6fc-cdba561faacc.jpg"
+//                );
+                String shareId = imgItem.getId();
+                String userId = imgItem.getpUserId();
+                ShareDetailItem item = new ShareDetailItem(shareId, userId);
+
+                // 将 ShareDetailItem 对象传递给分享详情页面
+                intent.putExtra("friend_circle_item", item);
+
+                // 启动分享详情页面
+                parent.getContext().startActivity(intent);
+            }
+        });
 
         ImageView image=view.findViewById(R.id.iv_image);
         TextView content=view.findViewById(R.id.tv_content);
