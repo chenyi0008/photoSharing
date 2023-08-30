@@ -3,6 +3,10 @@ package com.example.photosharing.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Debug;
 import android.util.Log;
@@ -78,7 +82,6 @@ public class ImmerseFragment extends Fragment {
     }
 
     private void InitData(){
-
         int current = 0; //第0页
         int size = 10;  //大小为10
         String userId = UserInfo.getInstance().getId();
@@ -93,8 +96,8 @@ public class ImmerseFragment extends Fragment {
                     // 修改成功，处理响应
                     System.out.println("请求成功");
                     System.out.println(response.body().getData());
-
                     imageList=response.body().getData().getRecords();
+                    UpdateView(view);
                 } else {
                     // 注册失败，处理错误情况
                     System.out.println("请求失败");
@@ -107,18 +110,16 @@ public class ImmerseFragment extends Fragment {
             }
         });
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_immerse, container, false);
-
+        return view;
+    }
+    private void UpdateView(View view){
         ImageAdapter imageAdapter = new ImageAdapter(getActivity() ,
                 R.layout.list_view , imageList);
         ListView lvImageList =view.findViewById(R.id.lv_image_list);
         lvImageList.setAdapter(imageAdapter);
-
-        // Inflate the layout for this fragment
-        return view;
     }
 }

@@ -82,10 +82,6 @@ public class ShareDetailActivity extends AppCompatActivity {
 
         commentView = findViewById(R.id.commentsRecyclerView);
         commentView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-
     }
 
 

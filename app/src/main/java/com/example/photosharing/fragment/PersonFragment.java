@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.photosharing.ModifyInformationActivity;
 import com.example.photosharing.R;
+import com.example.photosharing.ShareDetailActivity;
 import com.example.photosharing.model.UserInfo;
 import com.example.photosharing.util.ImageDownloader;
 
