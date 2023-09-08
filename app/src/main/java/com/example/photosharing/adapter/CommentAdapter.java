@@ -1,4 +1,4 @@
-package com.example.photosharing.Adapter;
+package com.example.photosharing.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

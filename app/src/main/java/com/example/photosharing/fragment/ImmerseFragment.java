@@ -4,13 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.os.Debug;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +14,7 @@ import com.example.photosharing.R;
 import com.example.photosharing.ShareActivity;
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
-import com.example.photosharing.model.ImageAdapter;
+import com.example.photosharing.adapter.ImageAdapter;
 import com.example.photosharing.model.ResponseBody;
 import com.example.photosharing.model.UserInfo;
 import com.example.photosharing.model.dto.ImageShareItemDto;
@@ -85,7 +79,7 @@ public class ImmerseFragment extends Fragment {
 
     private void InitData(){
         int current = 0; //第0页
-        int size = 10;  //大小为10
+        int size = 9999;  //大小为9999
         String userId = UserInfo.getInstance().getId();
 
         RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
@@ -99,6 +93,10 @@ public class ImmerseFragment extends Fragment {
                     System.out.println("请求成功");
                     System.out.println(response.body().getData());
                     imageList=response.body().getData().getRecords();
+                    for (int i = 0; i < imageList.size(); i++) {
+                        ImageShareItemDto dto = imageList.get(i);
+
+                    }
                     UpdateView(view);
                 } else {
                     // 注册失败，处理错误情况

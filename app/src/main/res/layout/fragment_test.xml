@@ -11,7 +11,34 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="我的" />
+        android:translationY="250dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="               collect" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationY="250dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:translationX="205dp"
+        android:text="               like" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationY="520dp"
+        android:textSize="18sp"
+
+        android:textStyle="bold"
+        android:text="               own " />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationY="520dp"
+        android:textSize="18sp"
+        android:translationX="205dp"
+        android:textStyle="bold"
+        android:text="               follow" />
 
     <ImageView
         android:id="@+id/iv_mycollect"
@@ -23,6 +50,7 @@
         android:layout_marginBottom="-40dp"
         android:background="#FFFFFF"
         android:clickable="true"
+        android:padding="50dp"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_uncollect_foreground" />
 
@@ -36,8 +64,9 @@
         android:layout_marginBottom="-40dp"
         android:background="#FFFFFF"
         android:clickable="true"
+        android:padding="80dp"
         android:scaleType="centerCrop"
-        android:translationY="240dp"
+        android:translationY="280dp"
         app:srcCompat="@drawable/ic_person_outline_black_24dp" />
 
     <ImageView
@@ -50,9 +79,10 @@
         android:layout_marginBottom="-40dp"
         android:background="#FFFFFF"
         android:clickable="true"
+        android:padding="50dp"
         android:scaleType="centerCrop"
         android:translationX="205dp"
-        android:translationY="240dp"
+        android:translationY="280dp"
         app:srcCompat="@drawable/ic_focus_foreground" />
 
     <ImageView
@@ -65,6 +95,7 @@
         android:layout_marginBottom="-40dp"
         android:background="#FFFFFF"
         android:clickable="true"
+        android:padding="50dp"
         android:scaleType="centerCrop"
         android:translationX="205dp"
         app:srcCompat="@drawable/ic_unlike_foreground" />

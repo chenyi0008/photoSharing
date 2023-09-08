@@ -75,13 +75,11 @@ public class ModifyInformationActivity extends AppCompatActivity {
         RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
 //        showToast(UserInfo.getInstance().getAvatar());
         String imgUrl = null;
-        if(UserInfo.getInstance().getAvatar().isEmpty())
+        if(UserInfo.getInstance().getAvatar()==null || UserInfo.getInstance().getAvatar().isEmpty())
             imgUrl = "https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/26/f1e9df8b-f12e-4015-acc0-20e5b139636b.png";
         else imgUrl = UserInfo.getInstance().getAvatar();
 //        Call<ResponseBody<UserInfo>> call2 = httpUtil.getUserByName(username);
-        final Bitmap[] bitmap = {null};
         new ImageDownloader(userAvatar).execute(imgUrl);
-        userAvatar.setImageBitmap(bitmap[0]);
 
     }
 

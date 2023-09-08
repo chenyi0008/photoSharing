@@ -1,4 +1,4 @@
-package com.example.photosharing.Adapter;
+package com.example.photosharing.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import com.example.photosharing.R;
 
 import java.util.List;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
+public class ImageDetailAdapter extends RecyclerView.Adapter<ImageDetailAdapter.ImageViewHolder> {
 
     private List<String> imageUrls;
     private Context context;
@@ -23,14 +23,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     private String content;
 
-    public ImageAdapter(List<String> imageUrls, Context context, String username, String content) {
+    public ImageDetailAdapter(List<String> imageUrls, Context context, String username, String content) {
         this.imageUrls = imageUrls;
         this.context = context;
         this.username = username;
         this.content = content;
     }
 
-    public ImageAdapter(List<String> imageUrls, Context context) {
+    public ImageDetailAdapter(List<String> imageUrls, Context context) {
         this.imageUrls = imageUrls;
         this.context = context;
     }

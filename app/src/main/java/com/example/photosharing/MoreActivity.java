@@ -2,19 +2,13 @@ package com.example.photosharing;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
-import com.example.photosharing.fragment.ImmerseFragment;
-import com.example.photosharing.fragment.PersonFragment;
-import com.example.photosharing.fragment.TestFragment;
-import com.example.photosharing.model.ImageAdapter;
+import com.example.photosharing.adapter.ImageAdapter;
 import com.example.photosharing.model.ResponseBody;
 import com.example.photosharing.model.UserInfo;
 import com.example.photosharing.model.dto.ImageShareItemDto;

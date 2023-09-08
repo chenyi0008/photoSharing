@@ -1,38 +1,27 @@
-package com.example.photosharing.model;
+package com.example.photosharing.adapter;
 
 import static android.app.PendingIntent.getActivity;
-
-import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
-import android.os.Debug;
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.photosharing.LoginActivity;
 import com.example.photosharing.R;
-import com.example.photosharing.ShareActivity;
 import com.example.photosharing.ShareDetailActivity;
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
+import com.example.photosharing.model.ResponseBody;
+import com.example.photosharing.model.ShareDetailItem;
+import com.example.photosharing.model.UserInfo;
 import com.example.photosharing.model.dto.ImageShareItemDto;
 import com.example.photosharing.util.ImageDownloader;
 
-import org.w3c.dom.Text;
-
-import java.lang.invoke.VarHandle;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -101,7 +90,12 @@ public class ImageAdapter extends ArrayAdapter<ImageShareItemDto> {
                     System.out.println("请求成功，处理响应");
                     if(response.body().getData()!=null){
                         final Bitmap[] bitmap = {null};
-                        new ImageDownloader(userAvatar).execute(response.body().getData().getAvatar());
+                        String avatar = response.body().getData().getAvatar();
+                        if(avatar == null || avatar.isEmpty()){
+                            avatar ="https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/26/f1e9df8b-f12e-4015-acc0-20e5b139636b.png";
+                        }
+
+                        new ImageDownloader(userAvatar).execute(avatar);
                         userAvatar.setImageBitmap(bitmap[0]);
                     }
                 } else {

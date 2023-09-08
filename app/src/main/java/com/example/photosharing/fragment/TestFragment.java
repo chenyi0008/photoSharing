@@ -9,15 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.photosharing.Adapter.ImageAdapter;
 import com.example.photosharing.MoreActivity;
 import com.example.photosharing.R;
-import com.example.photosharing.ShareActivity;
-import com.example.photosharing.ShareDetailActivity;
-import com.example.photosharing.model.ShareDetailItem;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

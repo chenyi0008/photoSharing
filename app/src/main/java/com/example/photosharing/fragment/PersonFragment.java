@@ -91,8 +91,10 @@ public class PersonFragment extends Fragment implements View.OnClickListener {
 
         System.out.println(UserInfo.getInstance().getAvatar());
         final Bitmap[] bitmap = {null};
-
-        new ImageDownloader(userAvater).execute(UserInfo.getInstance().getAvatar());
+        String image = UserInfo.getInstance().getAvatar();
+        if(image == null || image.isEmpty())
+            image = "https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/26/f1e9df8b-f12e-4015-acc0-20e5b139636b.png";
+        new ImageDownloader(userAvater).execute(image);
 
         userAvater.setImageBitmap(bitmap[0]);
 //        userID.setText("ID：" + UserInfo.getInstance().getId());

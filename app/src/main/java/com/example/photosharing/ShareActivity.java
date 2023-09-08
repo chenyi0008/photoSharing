@@ -1,14 +1,11 @@
 package com.example.photosharing;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -16,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.photosharing.Adapter.SelectedImagesAdapter;
+import com.example.photosharing.adapter.SelectedImagesAdapter;
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
 import com.example.photosharing.model.MyFile;
@@ -40,7 +37,7 @@ public class ShareActivity extends AppCompatActivity {
 
     private EditText titleEditText;
     private EditText contentEditText;
-    private Button submitButton, uploadButton;
+    private Button submitButton, uploadButton, saveButton;
 
     private static final int PICK_IMAGE_REQUEST = 2;
 
@@ -60,6 +57,7 @@ public class ShareActivity extends AppCompatActivity {
         contentEditText = findViewById(R.id.contentEditText);
         submitButton = findViewById(R.id.submitCommentButton);
         uploadButton = findViewById(R.id.uploadImgButton);
+        saveButton = findViewById(R.id.saveCommentButton);
         uploadButton.setOnClickListener(view -> openImagePicker());
 
         // 处理分享按钮点击事件
@@ -121,6 +119,112 @@ public class ShareActivity extends AppCompatActivity {
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                     if (response.isSuccessful()) {
                                         showToast("Successfully shared");
+
+
+                                    } else {
+                                        showToast(response.body().getMsg());
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    showToast("error");
+                                }
+                            });
+
+
+
+
+
+
+
+
+
+
+
+                        } else {
+                            // 处理响应失败情况
+                            System.out.println("failed-1");
+                            System.out.println(response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody<MyFile>> call, Throwable t) {
+                        // 处理网络请求失败情况
+                        System.out.println("failed-2");
+                    }
+                });
+
+
+
+
+
+
+
+
+
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String title = titleEditText.getText().toString();
+                String content = contentEditText.getText().toString();
+                if(title.isEmpty()){
+                    showToast("Your title cannot be empty");
+                    return;
+                }
+                if(content.isEmpty()){
+                    showToast("Your content cannot be empty");
+                    return;
+                }
+                if(selectedImageUris.size() == 0){
+                    showToast("Please upload the image");
+                }
+
+                //上传图片
+                ArrayList<File> fileList = new ArrayList<>();
+                for (Uri imageUris : selectedImageUris) {
+                    File file = Uploader.getFileFromContentUri(getBaseContext(), imageUris);
+                    fileList.add(file);
+                }
+                RetrofitRequest_Interface r = MyRetrofit.getRetrofitRequestInterface();
+                ArrayList<MultipartBody.Part> list = new ArrayList<>();
+                String imageCode = Uploader.uploadImageBatch(fileList);
+                for (File file : fileList) {
+                    RequestBody fileRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    MultipartBody.Part filePart = MultipartBody.Part.createFormData("fileList", file.getName(), fileRequestBody);
+                    list.add(filePart);
+                }
+                Call<ResponseBody<MyFile>> call = r.uploadFile(list);
+                call.enqueue(new Callback<ResponseBody<MyFile>>() {
+
+                    @Override
+                    public void onResponse(Call<ResponseBody<MyFile>> call, Response<ResponseBody<MyFile>> response) {
+                        if (response.isSuccessful()) {
+                            String imageCode = response.body().getData().getImageCode();
+                            System.out.println("图片ImageCode:" + response.body().getData().getImageCode());
+
+
+
+
+
+                            ImageShareDto dto = new ImageShareDto();
+                            dto.setContent(content);
+                            dto.setImageCode(imageCode);
+                            dto.setPUserId(UserInfo.getInstance().getId());
+                            dto.setTitle(title);
+                            System.out.println(dto.toString());
+                            RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
+                            Call<ResponseBody> call2 = httpUtil.saveImageSharing(dto);
+
+                            call2.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    if (response.isSuccessful()) {
+                                        showToast("Successfully saved");
 
 
                                     } else {

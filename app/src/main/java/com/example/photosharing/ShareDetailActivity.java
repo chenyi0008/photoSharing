@@ -16,8 +16,8 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.photosharing.Adapter.CommentAdapter;
-import com.example.photosharing.Adapter.ImageAdapter;
+import com.example.photosharing.adapter.CommentAdapter;
+import com.example.photosharing.adapter.ImageDetailAdapter;
 import com.example.photosharing.api.MyRetrofit;
 import com.example.photosharing.api.RetrofitRequest_Interface;
 import com.example.photosharing.model.CommentList;
@@ -175,9 +175,12 @@ public class ShareDetailActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 // 注册成功，处理响应
                                 System.out.println("请求成功，处理响应");
-                                final Bitmap[] bitmap = {null};
-                                new ImageDownloader(userAvatar).execute(response.body().getData().getAvatar());
-                                userAvatar.setImageBitmap(bitmap[0]);
+                                String imgUrl = null;
+                                if(UserInfo.getInstance().getAvatar()==null || UserInfo.getInstance().getAvatar().isEmpty())
+                                    imgUrl = "https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/26/f1e9df8b-f12e-4015-acc0-20e5b139636b.png";
+                                else imgUrl = UserInfo.getInstance().getAvatar();
+//        Call<ResponseBody<UserInfo>> call2 = httpUtil.getUserByName(username);
+                                new ImageDownloader(userAvatar).execute(imgUrl);
 
                             } else {
                                 // 注册失败，处理错误情况
@@ -197,9 +200,9 @@ public class ShareDetailActivity extends AppCompatActivity {
 
                     List<String> imageUrls = imageShareItemDto.getImageUrlList();
                     if (imageUrls != null && !imageUrls.isEmpty()) {
-                        ImageAdapter imageAdapter = new ImageAdapter(imageUrls, getBaseContext());
+                        ImageDetailAdapter imageDetailAdapter = new ImageDetailAdapter(imageUrls, getBaseContext());
                         imagesRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
-                        imagesRecyclerView.setAdapter(imageAdapter);
+                        imagesRecyclerView.setAdapter(imageDetailAdapter);
                     }
 
                 } else {

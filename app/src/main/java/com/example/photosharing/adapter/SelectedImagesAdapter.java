@@ -1,4 +1,4 @@
-package com.example.photosharing.Adapter;
+package com.example.photosharing.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;

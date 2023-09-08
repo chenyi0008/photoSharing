@@ -43,7 +43,7 @@
         <TextView
             android:id="@+id/username"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:text=" admin"
             android:textSize="18sp"
             android:height="45dp"
@@ -89,7 +89,7 @@
         <EditText
             android:id="@+id/introduce"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:hint="  Enter your introduction"
             app:layout_constraintTop_toTopOf="@+id/titleLabel"
             app:layout_constraintStart_toEndOf="@+id/titleLabel"
