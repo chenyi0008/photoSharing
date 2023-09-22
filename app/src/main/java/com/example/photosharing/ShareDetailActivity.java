@@ -81,10 +81,12 @@ public class ShareDetailActivity extends AppCompatActivity {
 
     private void bindData(ShareDetailItem item) {
         String shareId = item.getShareId();
-        String userId = item.getUserId();
-        _shareId = shareId;
+        String shareUserId = item.getUserId();
+        String userId = UserInfo.getInstance().getId();
         RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
         Call<ResponseBody<ImageShareItemDto>> call = httpUtil.getShareById(shareId, userId);
+        System.out.println("shareId:::"+shareId);
+        System.out.println("userId:::"+userId);
 
 
         call.enqueue(new Callback<ResponseBody<ImageShareItemDto>>() {
@@ -103,6 +105,7 @@ public class ShareDetailActivity extends AppCompatActivity {
 
                     if(imageShareItemDto.getHasFocus()) focus.setText("取消关注");
                     else focus.setText("关注");
+
                     focus.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -112,6 +115,9 @@ public class ShareDetailActivity extends AppCompatActivity {
 
                                 RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
                                 Call<ResponseBody> call = httpUtil.addFollow(focusUserId, userId);
+                                System.out.println("focusUserId:" + focusUserId);
+                                System.out.println("userId:" + userId);
+                                System.out.println("shareId"+ shareId);
 
                                 call.enqueue(new Callback<ResponseBody>() {
                                     @Override
@@ -119,13 +125,15 @@ public class ShareDetailActivity extends AppCompatActivity {
                                         if (response.isSuccessful()) {
                                             // 修改成功，处理响应
                                             System.out.println("请求成功");
-                                            if(response.body().getMsg().equals("不可以关注自己")){
-                                                Toast.makeText(ShareDetailActivity.this, "不可以关注自己", Toast.LENGTH_SHORT).show();
-                                            }
-                                            else{
+                                            if(response.body().getMsg() == null){
+                                                Toast.makeText(ShareDetailActivity.this, "关注成功", Toast.LENGTH_SHORT).show();
                                                 focus.setText("取消关注");
                                                 imageShareItemDto.setHasFocus(true);
                                             }
+                                            else {
+                                                Toast.makeText(ShareDetailActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                                            }
+
                                         } else {
                                             // 注册失败，处理错误情况
                                             System.out.println("请求失败");
@@ -176,9 +184,10 @@ public class ShareDetailActivity extends AppCompatActivity {
                                 // 注册成功，处理响应
                                 System.out.println("请求成功，处理响应");
                                 String imgUrl = null;
-                                if(UserInfo.getInstance().getAvatar()==null || UserInfo.getInstance().getAvatar().isEmpty())
+
+                                if(response.body().getData().getAvatar()==null || response.body().getData().getAvatar().isEmpty())
                                     imgUrl = "https://guet-lab.oss-cn-hangzhou.aliyuncs.com/api/2023/08/26/f1e9df8b-f12e-4015-acc0-20e5b139636b.png";
-                                else imgUrl = UserInfo.getInstance().getAvatar();
+                                else imgUrl = response.body().getData().getAvatar();
 //        Call<ResponseBody<UserInfo>> call2 = httpUtil.getUserByName(username);
                                 new ImageDownloader(userAvatar).execute(imgUrl);
 

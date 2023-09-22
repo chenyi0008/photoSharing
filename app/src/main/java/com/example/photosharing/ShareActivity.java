@@ -37,7 +37,7 @@ public class ShareActivity extends AppCompatActivity {
 
     private EditText titleEditText;
     private EditText contentEditText;
-    private Button submitButton, uploadButton, saveButton;
+    private Button submitButton, uploadButton, saveButton, getDraftButton;
 
     private static final int PICK_IMAGE_REQUEST = 2;
 
@@ -58,7 +58,18 @@ public class ShareActivity extends AppCompatActivity {
         submitButton = findViewById(R.id.submitCommentButton);
         uploadButton = findViewById(R.id.uploadImgButton);
         saveButton = findViewById(R.id.saveCommentButton);
+        getDraftButton = findViewById(R.id.getDraftButton);
         uploadButton.setOnClickListener(view -> openImagePicker());
+        getDraftButton = findViewById(R.id.getDraftButton);
+
+        getDraftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ShareActivity.this, MoreActivity.class);
+                intent.putExtra("type", 4);
+                startActivity(intent);
+            }
+        });
 
         // 处理分享按钮点击事件
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -100,8 +111,6 @@ public class ShareActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             String imageCode = response.body().getData().getImageCode();
                             System.out.println("图片ImageCode:" + response.body().getData().getImageCode());
-
-
 
 
 
@@ -152,7 +161,7 @@ public class ShareActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseBody<MyFile>> call, Throwable t) {
                         // 处理网络请求失败情况
-                        System.out.println("failed-2");
+                        System.out.println("failed-2 上传图片");
                     }
                 });
 
@@ -279,6 +288,8 @@ public class ShareActivity extends AppCompatActivity {
         adapter = new SelectedImagesAdapter(selectedImageUris, this);
         selectedImagesRecyclerView.setAdapter(adapter);
     }
+
+
 
     // 显示Toast消息
     public void showToast(String message) {

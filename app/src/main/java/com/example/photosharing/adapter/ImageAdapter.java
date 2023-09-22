@@ -33,6 +33,16 @@ public class ImageAdapter extends ArrayAdapter<ImageShareItemDto> {
     private Context mContext;
     private int resourceId;
 
+    ImageView image;
+    ImageView userAvatar;
+    TextView name;
+    TextView title;
+    TextView content;
+    ImageView hasLike;
+    TextView likeNum;
+    ImageView hasCollect;
+    TextView collectNum;
+
     public ImageAdapter(Context context,int resourceId,List<ImageShareItemDto> data){
         super(context,resourceId,data);
         this.mContext=context;
@@ -69,15 +79,15 @@ public class ImageAdapter extends ArrayAdapter<ImageShareItemDto> {
             }
         });
 
-        ImageView image=view.findViewById(R.id.iv_image);
-        ImageView userAvatar=view.findViewById(R.id.user_avatar);
-        TextView name=view.findViewById(R.id.tv_name);
-        TextView title=view.findViewById(R.id.tv_title);
-        TextView content=view.findViewById(R.id.tv_content);
-        ImageView hasLike=view.findViewById(R.id.iv_like);
-        TextView likeNum=view.findViewById(R.id.tv_likenum);
-        ImageView hasCollect=view.findViewById(R.id.iv_collect);
-        TextView collectNum=view.findViewById(R.id.tv_collectnum);
+         image=view.findViewById(R.id.iv_image);
+         userAvatar=view.findViewById(R.id.user_avatar);
+         name=view.findViewById(R.id.tv_name);
+         title=view.findViewById(R.id.tv_title);
+         content=view.findViewById(R.id.tv_content);
+         hasLike=view.findViewById(R.id.iv_like);
+         likeNum=view.findViewById(R.id.tv_likenum);
+         hasCollect=view.findViewById(R.id.iv_collect);
+         collectNum=view.findViewById(R.id.tv_collectnum);
 
 
         RetrofitRequest_Interface httpUtil = MyRetrofit.getRetrofitRequestInterface();
@@ -111,9 +121,7 @@ public class ImageAdapter extends ArrayAdapter<ImageShareItemDto> {
                 System.out.println("失败");
             }
         });
-        final Bitmap[] bitmap = {null};
         new ImageDownloader(image).execute(imgItem.getImageUrlList().get(0));
-        image.setImageBitmap(bitmap[0]);
 
         name.setText(imgItem.getUsername());
         title.setText(imgItem.getTitle());
